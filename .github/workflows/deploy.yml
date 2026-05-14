@@ -2,7 +2,7 @@ name: Deploy Time Counter App
 
 on:
   push:
-    branches: ["main", "master", "copilot/build-time-counting-app"]
+    branches: ["main", "master"]
   workflow_dispatch:
 
 permissions:
