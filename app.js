@@ -85,22 +85,22 @@ function getUTCOffsetForTimezone(timezone) {
     const utcHours = date.getUTCHours();
     const utcMinutes = date.getUTCMinutes();
     
-    // Calculate the offset
-    let offsetHours = tzHours - utcHours;
-    let offsetMinutes = tzMinutes - utcMinutes;
+    // Calculate the offset in total minutes
+    let offsetMinutes = (tzHours * 60 + tzMinutes) - (utcHours * 60 + utcMinutes);
     
-    // Handle day boundary crossings
-    if (offsetHours > 12) {
-      offsetHours -= 24;
-    } else if (offsetHours < -12) {
-      offsetHours += 24;
+    // Handle day boundary crossings (offset should be between -12 and +14 hours)
+    if (offsetMinutes > 12 * 60) {
+      offsetMinutes -= 24 * 60;
+    } else if (offsetMinutes < -14 * 60) {
+      offsetMinutes += 24 * 60;
     }
     
-    const sign = offsetHours >= 0 && offsetMinutes >= 0 ? "+" : "-";
-    const absHours = Math.abs(offsetHours);
-    const absMinutes = Math.abs(offsetMinutes);
+    const sign = offsetMinutes >= 0 ? "+" : "-";
+    const absOffsetMinutes = Math.abs(offsetMinutes);
+    const hours = Math.floor(absOffsetMinutes / 60);
+    const minutes = absOffsetMinutes % 60;
     
-    return `UTC${sign}${String(absHours).padStart(2, "0")}:${String(absMinutes).padStart(2, "0")}`;
+    return `UTC${sign}${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}`;
   } catch (e) {
     return "UTC";
   }
@@ -185,7 +185,19 @@ function convertTime() {
   }
   
   try {
-    const [inputHours, inputMinutes] = timeInput.split(":").map(Number);
+    const timeParts = timeInput.split(":").map(Number);
+    if (timeParts.length !== 2 || isNaN(timeParts[0]) || isNaN(timeParts[1])) {
+      conversionResultsContainer.innerHTML = '<p style="color: #999;">Invalid time format</p>';
+      return;
+    }
+    
+    const [inputHours, inputMinutes] = timeParts;
+    
+    // Validate hours and minutes ranges
+    if (inputHours < 0 || inputHours > 23 || inputMinutes < 0 || inputMinutes > 59) {
+      conversionResultsContainer.innerHTML = '<p style="color: #999;">Invalid time values</p>';
+      return;
+    }
     
     // Create a reference date (using today's date)
     const referenceDate = new Date();
@@ -200,27 +212,26 @@ function convertTime() {
     });
     
     const sourceTimeStr = sourceFormatter.format(referenceDate);
-    const [sourceHours, sourceMinutes] = sourceTimeStr.split(":").slice(0, 2).map(Number);
+    const sourceTimeParts = sourceTimeStr.split(":").slice(0, 2).map(Number);
+    const [sourceHours, sourceMinutes] = sourceTimeParts;
     
     // Get current UTC time
     const utcHours = referenceDate.getUTCHours();
     const utcMinutes = referenceDate.getUTCMinutes();
     
-    // Calculate source timezone offset
-    let sourceOffsetHours = sourceHours - utcHours;
-    let sourceOffsetMinutes = sourceMinutes - utcMinutes;
+    // Calculate source timezone offset in total minutes
+    let sourceOffsetMinutes = (sourceHours * 60 + sourceMinutes) - (utcHours * 60 + utcMinutes);
     
     // Handle day boundary crossings
-    if (sourceOffsetHours > 12) {
-      sourceOffsetHours -= 24;
-    } else if (sourceOffsetHours < -12) {
-      sourceOffsetHours += 24;
+    if (sourceOffsetMinutes > 12 * 60) {
+      sourceOffsetMinutes -= 24 * 60;
+    } else if (sourceOffsetMinutes < -14 * 60) {
+      sourceOffsetMinutes += 24 * 60;
     }
     
-    // Create a UTC date for the input time
+    // Create UTC time from input time by subtracting the timezone offset
     let totalInputMinutes = inputHours * 60 + inputMinutes;
-    let totalSourceOffsetMinutes = sourceOffsetHours * 60 + sourceOffsetMinutes;
-    let totalUTCMinutes = totalInputMinutes - totalSourceOffsetMinutes;
+    let totalUTCMinutes = totalInputMinutes - sourceOffsetMinutes;
     
     // Handle day boundaries for the conversion
     while (totalUTCMinutes < 0) {
