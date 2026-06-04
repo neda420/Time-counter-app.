@@ -10,12 +10,6 @@ A lightweight timer web app with additional time-related features:
 
 Open `index.html` directly in a browser, or serve the folder:
 
-```bash
-python3 -m http.server 4173
-```
-
-Then visit `http://localhost:4173`.
-
 ## Deployment
 
 The app is automatically built and deployed to **GitHub Pages** through GitHub Actions.
