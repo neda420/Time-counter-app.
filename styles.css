@@ -44,3 +44,86 @@ input {
   font-size: 1rem;
   padding: 0.5rem 0.75rem;
 }
+
+select {
+  font-size: 1rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-weight: 500;
+}
+
+.world-clock,
+.time-converter {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.converter-input-group {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.converter-input-group > div {
+  flex: 1;
+  min-width: 200px;
+}
+
+#converter-time-input,
+#timezone-select,
+#source-timezone {
+  width: 100%;
+}
+
+#utc-offset {
+  font-size: 0.9rem;
+  color: #666;
+  margin: 0;
+}
+
+.converter-info {
+  font-size: 0.9rem;
+  color: #666;
+  margin: 0.5rem 0;
+}
+
+.conversion-results {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.timezone-result {
+  background: #f9f9f9;
+  padding: 0.75rem;
+  border-radius: 6px;
+  border-left: 4px solid #007bff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.timezone-result-name {
+  font-weight: 500;
+  color: #1d2433;
+}
+
+.timezone-result-time {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #007bff;
+}
+
+.timezone-result-offset {
+  font-size: 0.85rem;
+  color: #999;
+}
+
