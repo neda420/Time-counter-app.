@@ -35,6 +35,60 @@
         <h2>Current Time</h2>
         <p id="clock-display" class="display">--:--:--</p>
       </section>
+
+      <section class="card">
+        <h2>World Clock</h2>
+        <div class="world-clock">
+          <label for="timezone-select">Select Country/Timezone:</label>
+          <select id="timezone-select">
+            <option value="UTC">UTC (Coordinated Universal Time)</option>
+            <option value="America/New_York">USA (New York) - EST/EDT</option>
+            <option value="America/Chicago">USA (Chicago) - CST/CDT</option>
+            <option value="America/Denver">USA (Denver) - MST/MDT</option>
+            <option value="America/Los_Angeles">USA (Los Angeles) - PST/PDT</option>
+            <option value="Europe/London">UK (London) - GMT/BST</option>
+            <option value="Europe/Paris">France (Paris) - CET/CEST</option>
+            <option value="Europe/Berlin">Germany (Berlin) - CET/CEST</option>
+            <option value="Asia/Dubai">UAE (Dubai) - GST</option>
+            <option value="Asia/Kolkata">India (New Delhi) - IST</option>
+            <option value="Asia/Bangkok">Thailand (Bangkok) - ICT</option>
+            <option value="Asia/Singapore">Singapore - SGT</option>
+            <option value="Asia/Hong_Kong">Hong Kong - HKT</option>
+            <option value="Asia/Tokyo">Japan (Tokyo) - JST</option>
+            <option value="Asia/Shanghai">China (Shanghai) - CST</option>
+            <option value="Australia/Sydney">Australia (Sydney) - AEDT/AEST</option>
+            <option value="Pacific/Auckland">New Zealand (Auckland) - NZDT/NZST</option>
+          </select>
+          <p id="world-clock-display" class="display">--:--:--</p>
+          <p id="utc-offset">UTC Offset: --:--</p>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Time Converter</h2>
+        <div class="time-converter">
+          <div class="converter-input-group">
+            <div>
+              <label for="converter-time-input">Enter Time:</label>
+              <input id="converter-time-input" type="time" />
+            </div>
+            <div>
+              <label for="source-timezone">From Timezone:</label>
+              <select id="source-timezone">
+                <option value="UTC">UTC</option>
+                <option value="America/New_York">USA (New York) - EST/EDT</option>
+                <option value="America/Los_Angeles">USA (Los Angeles) - PST/PDT</option>
+                <option value="Europe/London">UK (London) - GMT/BST</option>
+                <option value="Asia/Kolkata">India (New Delhi) - IST</option>
+                <option value="Asia/Tokyo">Japan (Tokyo) - JST</option>
+                <option value="Australia/Sydney">Australia (Sydney) - AEDT/AEST</option>
+              </select>
+            </div>
+          </div>
+          <p class="converter-info">Times in different timezones:</p>
+          <div id="conversion-results" class="conversion-results"></div>
+        </div>
+      </section>
     </main>
     <script src="app.js"></script>
   </body>
