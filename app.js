@@ -88,10 +88,10 @@ function getUTCOffsetForTimezone(timezone) {
     // Calculate the offset in total minutes
     let offsetMinutes = (tzHours * 60 + tzMinutes) - (utcHours * 60 + utcMinutes);
     
-    // Handle day boundary crossings (offset should be between -12 and +14 hours)
-    if (offsetMinutes > 12 * 60) {
+    // Handle day boundary crossings (UTC offsets range from UTC-12 to UTC+14)
+    if (offsetMinutes > 14 * 60) {
       offsetMinutes -= 24 * 60;
-    } else if (offsetMinutes < -14 * 60) {
+    } else if (offsetMinutes < -12 * 60) {
       offsetMinutes += 24 * 60;
     }
     
@@ -222,10 +222,10 @@ function convertTime() {
     // Calculate source timezone offset in total minutes
     let sourceOffsetMinutes = (sourceHours * 60 + sourceMinutes) - (utcHours * 60 + utcMinutes);
     
-    // Handle day boundary crossings
-    if (sourceOffsetMinutes > 12 * 60) {
+    // Handle day boundary crossings (UTC offsets range from UTC-12 to UTC+14)
+    if (sourceOffsetMinutes > 14 * 60) {
       sourceOffsetMinutes -= 24 * 60;
-    } else if (sourceOffsetMinutes < -14 * 60) {
+    } else if (sourceOffsetMinutes < -12 * 60) {
       sourceOffsetMinutes += 24 * 60;
     }
     
