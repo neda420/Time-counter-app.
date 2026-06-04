@@ -6,10 +6,3 @@ A lightweight timer web app with additional time-related features:
 - **Countdown timer** with custom seconds input
 - **Live clock** showing current local time
 
-## Run locally
-
-Open `index.html` directly in a browser, or serve the folder:
-
-## Deployment
-
-The app is automatically built and deployed to **GitHub Pages** through GitHub Actions.
